@@ -1,0 +1,60 @@
+server:
+  port: 8000
+
+spring:
+  application:
+    name: gateway
+  # config:
+  #   import: "consul:"
+  cloud:
+    loadbalancer:
+      health-check:
+        enabled: true
+      cache:
+        enabled: false
+    compatibility-verifier:
+      enabled: false
+    consul:
+      config:
+        import-check:
+          enabled: false
+      #host: localhost
+      #port: 8500
+      discovery:
+        # enabled: true
+        # register: true
+        # Get only services that are passing the health check
+        query-passing: true
+    gateway:
+      routes:
+        - id: multiplication
+          uri: http://localhost:8080/
+          predicates:
+           - Path=/challenges/**,/attempts,/attempts/**,/users/**
+        - id: gamification
+          uri: http://localhost:8081/  # lb://gamification
+          predicates:
+           - Path=/leaders
+      globalcors:
+        cors-configurations:
+          '[/**]':
+            allowedOrigins: "http://localhost:3000"
+            allowedHeaders:
+              - "*"
+            allowedMethods:
+             - "GET"
+             - "POST"
+             - "OPTIONS"# Uncomment the configuration below if you want to enable route matching logs
+      default-filters:
+        - name: Retry
+          args:
+            retries: 3
+            methods: GET, POST
+logging:
+ level:
+   #root: DEBUG
+   #org.springframework.cloud.gateway.handler.predicate: trace
+   org.springframework.cloud.consul.discovery: DEBUG
+   #org.springframework.cloud.gateway: DEBUG
+   org.springframework.cloud.loadbalancer: DEBUG
+   org.springframework.amqp.rabbit.connection.CachingConnectionFactory: WARN

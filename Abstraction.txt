@@ -1,0 +1,52 @@
+Product: Nueron-cercise
+
+Purpose: Web application to encourage users to excercise their brain everyday. Basically gamifying multiplication guesses to exercise math skills.
+
+User Story 1
+As a user of the application, I want to solve a random multiplication problem using mental calculation so I can excercise my brain.
+
+Subtask for this user story:
+1. Create a basic service with the business logic
+2. Create a basic API to access this service (REST API)
+3. Create a basic web page to ask the users to solve the calc.
+
+
+
+Application Services
+Based on requirements we need:
+1. A way to generate mid-complexity mutiplication problems.
+2. Functinality to check if attempt is correct or not.
+
+TDD for business logic:
+1. Write basic interface to generate random challenges.
+
+
+Presentation Layer
+Using the requirements to design REST APIs to expose:
+1. An interface to get the a random, mid complex multipl..
+2. Endpoint to send guess for multiplication  for given alias
+
+GET /challenges/random -> returns radom generated challenge
+POST /attempts/ -> endpoint to send attempts to solve challenge
+
+
+User Story 2
+As a user of the application, I want to have access to my last attempts so I can see if I'm improving my brain skills over time.
+
+Subtask for this user story:
+1. Store all the user attempts and have a way to query them per user.
+2. Expose a new REST endpoint to get the latest attempt for a given user.
+3. Create a new service (Business Logic) to retrieve those attempts.
+4. Show the attempts' history to the users on the web page after they send a new one.
+
+
+User Story 3
+As a user of the application, I want to be motivated to keep solving challenges every day and not abandon it after a while. This way, I keep excercising my brain and improving over time.
+
+
+
+
+Tasks for implementing message broker in architecture
+
+
+
